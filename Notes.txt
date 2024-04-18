@@ -1,0 +1,43 @@
+Here is my question though, then what is the point of the safe thread vs the unsafe
+thread? what does that lock do? And also if I just create 5 instances of unsafe thread
+and pass each one into the Threads, that will work the same way too correct? Or isnt the
+point of the lab to only create one instance of unsafe and use it for each thread to test
+concurency issues? Or am i wrong?
+ChatGPT
+In the context of your exercise involving SafeCopier and UnsafeCopier, the main distinction
+between the two classes lies in how they handle concurrency issues.
+
+UnsafeCopier: This class represents a scenario where threads (monkeys) operate on the same
+resource (the copier) without any synchronization (locking). This can lead to concurrency
+issues such as data corruption or inconsistent states because multiple threads can modify the
+ shared resource simultaneously without any control. Testing this class allows you to observe
+ potential problems with concurrent access to a shared resource.
+
+SafeCopier: This class introduces synchronization (locking) to ensure that only one thread at a
+ time can modify the shared resource. This is achieved using a lock (typically from java.util.
+ concurrent), which provides exclusive access to the shared resource while a thread is modifying
+ it. This prevents concurrency issues and ensures that the shared resource remains consistent.
+ Testing this class demonstrates the correct approach to handle concurrency safely.
+
+The point of the lab is to highlight the differences between these two approaches and to show the
+importance of using locks when dealing with shared resources in a concurrent environment.
+
+If you create five instances of UnsafeCopier and pass each one to a different thread, each thread
+will operate independently with its own instance of UnsafeCopier. This avoids the concurrency
+issues associated with shared resources, which defeats the purpose of testing UnsafeCopier in a
+concurrent context.
+
+The goal of using one instance of UnsafeCopier for all threads is to observe how concurrent
+access to the same resource can lead to problems, such as race conditions or data corruption.
+This helps to emphasize the importance of synchronization (as demonstrated by SafeCopier) in
+concurrent programming.
+
+To sum up:
+
+UnsafeCopier should use one instance across multiple threads to test concurrency issues and
+observe problems with unsynchronized access.
+SafeCopier demonstrates how to properly synchronize access to a shared resource to prevent
+concurrency issues.
+
+
+
