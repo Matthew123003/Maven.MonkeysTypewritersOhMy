@@ -10,22 +10,20 @@ import static java.nio.file.Files.copy;
  */
 public class SafeCopier extends Copier{
 
-    private final ReentrantLock lock = new ReentrantLock();
+    private ReentrantLock lock = new ReentrantLock();
     public SafeCopier(String toCopy) {
         super(toCopy);
+        this.lock = new ReentrantLock();
     }
 
     @Override
     public void run() {
-        // Acquire the lock to ensure thread-safe access to the copying process
-        lock.lock();
-        try {
-           
-            } catch (Exception e) {
-            throw new RuntimeException(e);
-        } finally {
-            // Always release the lock
-            lock.unlock();
+        while(stringIterator.hasNext()) {
+            lock.lock();
+            if (stringIterator.hasNext()) {
+                copied += stringIterator.next() + " ";
+                lock.unlock();
+            }
         }
     }
 }
