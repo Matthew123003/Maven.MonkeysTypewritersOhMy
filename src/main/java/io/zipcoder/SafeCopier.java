@@ -10,7 +10,7 @@ import static java.nio.file.Files.copy;
  */
 public class SafeCopier extends Copier{
 
-    private ReentrantLock lock = new ReentrantLock();
+    private ReentrantLock lock;
     public SafeCopier(String toCopy) {
         super(toCopy);
         this.lock = new ReentrantLock();
