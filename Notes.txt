@@ -39,5 +39,35 @@ observe problems with unsynchronized access.
 SafeCopier demonstrates how to properly synchronize access to a shared resource to prevent
 concurrency issues.
 
+The Thread.sleep() part in the main method serves as a pause or delay between the time the
+monkeys finish copying and when the copied versions are printed out. Let's break down why
+ it's used:
+
+Joining Threads:
+
+Before the Thread.sleep() part, the main method is joining (waiting for) the monkey threads
+ to finish their execution using the join() method.
+The join() method ensures that the main thread (in this case, the main method) waits for
+ each monkey thread to finish executing before moving on to the next step.
+By joining the monkey threads, the main thread ensures that it doesn't proceed to print the
+ copied versions until all monkeys have completed their copying tasks.
+Printing Copied Versions:
+
+After the monkey threads have finished their tasks, the main thread proceeds to print out
+ the copied versions.
+Without any delay, the main thread might print the copied versions immediately after starting
+ the monkey threads, even before they have finished copying.
+The Thread.sleep(1000) part introduces a 1-second delay, giving enough time for the monkey
+threads to complete their tasks before printing the copied versions.
+Handling Interruptions:
+
+The Thread.sleep() method can throw an InterruptedException, which is why it's wrapped in a
+ try-catch block.
+In case an interruption occurs while the main thread is sleeping, the catch block handles
+the exception by printing "MAIN INTERRUPTED".
+In summary, the Thread.sleep() part ensures that the main thread waits for the monkey threads
+ to finish executing before printing out the copied versions. It introduces a short delay to
+  allow all monkey threads to complete their tasks before proceeding with the next step.
+
 
 
